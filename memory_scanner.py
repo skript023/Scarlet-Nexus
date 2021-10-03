@@ -6,10 +6,9 @@ pm = Pymem('ScarletNexus-Win64-Shipping.exe')
 print('Process id: ', hex(pm.process_id).upper(), "Process Handle : ", str(pm.process_handle))
 
 class pattern_scan():
-    Pointer = 0
-    SignatureName = ""
-    SigPattern = b""
-    final = ""
+    def __init__(self, name, signature) -> None:
+        self.signature_scan(name, signature)
+
     def insert_string(self, string, str_to_insert, index):
         return string[:index] + str_to_insert + string[index:]
 

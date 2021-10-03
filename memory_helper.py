@@ -11,6 +11,7 @@ class Memory():
                 ptr = int(str(temp_addr), 0) + int(str(offset), 0)
                 temp_addr = pm.read_longlong(ptr)
             return ptr
+
     def is_bit_set(_address,_bit) -> bool:
         v = pm.read_int(_address)
         if v == None:

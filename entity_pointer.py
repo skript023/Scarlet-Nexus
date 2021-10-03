@@ -1,9 +1,10 @@
 from pymem.memory import allocate_memory, free_memory
+from memory_scanner import pm
 from pointers import *
 import memory_helper
 
 memory = memory_helper.Memory()
-
+g_pointers = Pointers()
 
 def getUserParamsBase():
 	return memory.get_pointer(g_pointers.m_unreal_engine, [0xE08, 0x2D8, 0x80, 0x0])
@@ -125,6 +126,4 @@ def infinite_battle_points(activate:bool):
     elif not activate:
         pm.write_bytes(g_pointers.battle_points_handle, b"\x48", 1)
 
-x = allocate_memory(pm.process_handle, g_pointers.items_handle)
-print(hex(x))
-free_memory(pm.process_handle, x)
+
