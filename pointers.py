@@ -8,6 +8,7 @@ class Pointers:
         self.battle_points_handle = scanner.pattern_scan("Battle Points Hanlder", "48 89 ? ? ? 57 48 83 EC ? 8B FA 48 8B ? E8 ? ? ? ? 3C ? 75 ? 8B 93").scan()
         self.credits_handle = scanner.pattern_scan("Credits Handler", "48 89 ? ? ? 48 89 ? ? ? 48 89 ? ? ? 57 48 83 EC ? 4C 8B ? ? ? ? ? 33 F6").scan()
         self.items_handle = scanner.pattern_scan("Items Handler", "45 8D ? ? 45 89 ? ? 45 3B").scan()
+        print("Pointer Initialized")
 
 def windowEnumHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
