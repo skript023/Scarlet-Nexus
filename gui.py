@@ -108,7 +108,7 @@ def main():
                 if not g_window.window_toggle and win32api.GetAsyncKeyState(0x2D)&0x8000: g_window.hide_vp()
         if not is_window_exist("ScarletNexus"): sys.exit(0)
         imgui.render_dearpygui_frame()
-    imgui.cleanup_dearpygui()
+    imgui.destroy_context()
 
 if __name__ == "__main__":
     main()
