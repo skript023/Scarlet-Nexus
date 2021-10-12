@@ -147,37 +147,39 @@ def infinite_battle_points(activate:bool):
         pm.write_bytes(g_pointers.battle_points_handle, b"\x48", 1)
 
 def set_player_skill(skill_id, slot):
-    if slot == 1:
-        pm.write_bytes(getPlayerSkillBase() + 0x2, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 2:
-        pm.write_bytes(getPlayerSkillBase() + 0x0, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 3:
-        pm.write_bytes(getPlayerSkillBase() + 0x1, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 4:
-        pm.write_bytes(getPlayerSkillBase() + 0x3, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 5:
-        pm.write_bytes(getPlayerSkillBase() + 0x6, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 6:
-        pm.write_bytes(getPlayerSkillBase() + 0x4, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 7:
-        pm.write_bytes(getPlayerSkillBase() + 0x5, utl.uint_to_bytes(skill_id), 1)
-    elif slot == 8:
-        pm.write_bytes(getPlayerSkillBase() + 0x7, utl.uint_to_bytes(skill_id), 1)
+    match slot:
+        case 1:
+            pm.write_bytes(getPlayerSkillBase() + 0x2, utl.uint_to_bytes(skill_id), 1)
+        case 2:
+            pm.write_bytes(getPlayerSkillBase() + 0x0, utl.uint_to_bytes(skill_id), 1)
+        case 3:
+            pm.write_bytes(getPlayerSkillBase() + 0x1, utl.uint_to_bytes(skill_id), 1)
+        case 4:
+            pm.write_bytes(getPlayerSkillBase() + 0x3, utl.uint_to_bytes(skill_id), 1)
+        case 5:
+            pm.write_bytes(getPlayerSkillBase() + 0x6, utl.uint_to_bytes(skill_id), 1)
+        case 6:
+            pm.write_bytes(getPlayerSkillBase() + 0x4, utl.uint_to_bytes(skill_id), 1)
+        case 7:
+            pm.write_bytes(getPlayerSkillBase() + 0x5, utl.uint_to_bytes(skill_id), 1)
+        case 8:
+            pm.write_bytes(getPlayerSkillBase() + 0x7, utl.uint_to_bytes(skill_id), 1)
 
 def get_player_skill(slot:int) -> str:
-    if slot == 1:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x2, 1))]
-    elif slot == 2:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x0, 1))]
-    elif slot == 3:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x1, 1))]
-    elif slot == 4:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x3, 1))]
-    elif slot == 5:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x6, 1))]
-    elif slot == 6:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x4, 1))]
-    elif slot == 7:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x5, 1))]
-    elif slot == 8:
-        return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x7, 1))]
+    match slot:
+        case 1:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x2, 1))]
+        case 2:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x0, 1))]
+        case 3:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x1, 1))]
+        case 4:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x3, 1))]
+        case 5:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x6, 1))]
+        case 6:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x4, 1))]
+        case 7:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x5, 1))]
+        case 8:
+            return skill_list[utl.uint_from_bytes(pm.read_bytes(getPlayerSkillBase() + 0x7, 1))]

@@ -1,4 +1,4 @@
-from time import sleep
+from logger import g_logger
 from pymem import Pymem
 import pymem
 from utility import is_window_exist
@@ -9,16 +9,16 @@ print("""
 | (___   ___ __ _ _ __| | ___| |_|  \| | _____  ___   _ ___| |_ __ __ _ _ _ __   ___ _ __ 
  \___ \ / __/ _` | '__| |/ _ \ __| . ` |/ _ \ \/ / | | / __| | '__/ _` | | '_ \ / _ \ '__|
  ____) | (_| (_| | |  | |  __/ |_| |\  |  __/>  <| |_| \__ \ | | | (_| | | | | |  __/ |   
-|_____/ \___\__,_|_|  |_|\___|\__|_| \_|\___/_/\_\\____|___/_|_|  \__,_|_|_| |_|\___|_|                                                                                                            
+|_____/ \___\__,_|_|  |_|\___|\__|_| \_|\___/_/\_,\____|___/_|_|  \__,_|_|_| |_|\___|_|                                                                                                            
 """)
 
-print("Waiting Game Window")
+g_logger.logger("Waiting Game Window")
 
 if not is_window_exist("ScarletNexus"):
     input("Press Enter to When Game Is Started")
 
 pm = Pymem('ScarletNexus-Win64-Shipping.exe')
-print('Process id: ', hex(pm.process_id).upper(), "Process Handle : ", str(pm.process_handle))
+g_logger.logger(f"Process id: {hex(pm.process_id).upper()} Process Handle : {str(pm.process_handle)}")
 
 class pattern_scan():
     def __init__(self, name, signature) -> None:
@@ -51,7 +51,7 @@ class pattern_scan():
 
     def scan(self):
         try:
-            print("scanning: ", self.SignatureName, "Address : ", hex(self.Pointer).upper())
+            g_logger.logger(f"{self.SignatureName} : ScarletNexus-Win64-Shipping.exe+{hex(self.Pointer-pm.base_address).upper()}")
             return self.Pointer
         except Exception as e:
             print(e)

@@ -1,5 +1,9 @@
 import win32gui
 import win32con
+from logger import g_logger
+import sys
+import datetime as date
+import os
 
 def windowEnumHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
@@ -21,6 +25,16 @@ def is_window_exist(window_name):
         if window_name.lower() in i[1].lower():
             return True
     return False
+
+def exit_program():
+    tanggal = date.datetime.now()
+    scr = '%s\\Scarlet Nexus Trainer\\Ellohim Log.log' %  os.environ['APPDATA']
+    dst = '%s\\Scarlet Nexus Trainer\History\\Ellohim Log.log' %  os.environ['APPDATA']
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    g_logger.copy_file(scr, dst)
+    g_logger.rename_file('%s\\Scarlet Nexus Trainer\History\\Ellohim Log.log' %  os.environ['APPDATA'], f"{os.environ['APPDATA']}\\Scarlet Nexus Trainer\History\\{tanggal.year}-{tanggal.month}-{tanggal.day}-{tanggal.hour}-{tanggal.minute}-{tanggal.second}.log")
+    g_logger.clean_log_file()
+    sys.exit(0)
 
 def uint_to_bytes(number: int) -> bytes:
     return number.to_bytes((number.bit_length() + 7) // 8, 'big')
