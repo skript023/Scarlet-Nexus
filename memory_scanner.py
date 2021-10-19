@@ -3,14 +3,14 @@ from pymem import Pymem
 import pymem
 from utility import is_window_exist
 
-print("""
+print(f"""{g_logger.CGREEN2}
   _____                _      _   _   _                  _______        _                 
  / ____|              | |    | | | \ | |                |__   __|      (_)                
 | (___   ___ __ _ _ __| | ___| |_|  \| | _____  ___   _ ___| |_ __ __ _ _ _ __   ___ _ __ 
  \___ \ / __/ _` | '__| |/ _ \ __| . ` |/ _ \ \/ / | | / __| | '__/ _` | | '_ \ / _ \ '__|
  ____) | (_| (_| | |  | |  __/ |_| |\  |  __/>  <| |_| \__ \ | | | (_| | | | | |  __/ |   
 |_____/ \___\__,_|_|  |_|\___|\__|_| \_|\___/_/\_,\____|___/_|_|  \__,_|_|_| |_|\___|_|                                                                                                            
-""")
+{g_logger.CEND}""")
 
 g_logger.logger("Waiting Game Window")
 
@@ -19,6 +19,7 @@ if not is_window_exist("ScarletNexus"):
 
 pm = Pymem('ScarletNexus-Win64-Shipping.exe')
 g_logger.logger(f"Process id: {hex(pm.process_id).upper()} Process Handle : {str(pm.process_handle)}")
+g_logger.logger("Initializing Pointer")
 
 class pattern_scan():
     def __init__(self, name, signature) -> None:

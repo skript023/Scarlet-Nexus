@@ -4,6 +4,8 @@ from logger import g_logger
 import sys
 import datetime as date
 import os
+import winxpgui
+import win32api
 
 def windowEnumHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
@@ -26,7 +28,19 @@ def is_window_exist(window_name):
             return True
     return False
 
+def set_window_transparent(window_name:str, transparency:int):
+    hwnd = win32gui.FindWindow(None, window_name)
+    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong (hwnd, win32con.GWL_EXSTYLE ) | win32con.WS_EX_LAYERED )
+    winxpgui.SetLayeredWindowAttributes(hwnd, win32api.RGB(0,0,0), transparency, win32con.LWA_ALPHA)
+
 def exit_program():
+    g_logger.log_to_console(g_logger.info, "Pointers uninitialized")
+    g_logger.log_to_console(g_logger.info, "Renderer uninitialized")
+    g_logger.log_to_console(g_logger.info, "Exit Program")
+    g_logger.log_to_console(g_logger.info, "Farewell!")
+    sys.exit(0)
+
+def when_opened():
     tanggal = date.datetime.now()
     scr = '%s\\Scarlet Nexus Trainer\\Ellohim Log.log' %  os.environ['APPDATA']
     dst = '%s\\Scarlet Nexus Trainer\History\\Ellohim Log.log' %  os.environ['APPDATA']
@@ -34,7 +48,6 @@ def exit_program():
     g_logger.copy_file(scr, dst)
     g_logger.rename_file('%s\\Scarlet Nexus Trainer\History\\Ellohim Log.log' %  os.environ['APPDATA'], f"{os.environ['APPDATA']}\\Scarlet Nexus Trainer\History\\{tanggal.year}-{tanggal.month}-{tanggal.day}-{tanggal.hour}-{tanggal.minute}-{tanggal.second}.log")
     g_logger.clean_log_file()
-    sys.exit(0)
 
 def uint_to_bytes(number: int) -> bytes:
     return number.to_bytes((number.bit_length() + 7) // 8, 'big')
