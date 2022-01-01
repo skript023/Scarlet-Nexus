@@ -64,12 +64,12 @@ class Logger(LogTypes):
     def log_to_console(self, log_level:str, message:str):
         caller_filename_full = inspect.stack()[1].filename
         caller_filename_only = os.path.splitext(os.path.basename(caller_filename_full))[0]
-        file_location = f"{os.environ['APPDATA']}\\Ellohim External\\Ellohim Log.log"
+        file_location = f"{os.environ['APPDATA']}\\Scarlet Nexus Trainer\\Scarlet Nexus Log.log"
         os.makedirs(os.path.dirname(file_location), exist_ok=True)
         time = date.datetime.now()
         file = open(file_location,"a")
         
-        file.write(f"[{time.hour}:{time.minute}:{time.second}] [{log_level}] [{caller_filename_only}.c:{inspect.stack()[1][2]}:{inspect.stack()[1][3]}] {message} \n")
+        file.write(f"[{time.hour}:{time.minute}:{time.second}] [{log_level}] [{caller_filename_only}.py:{inspect.stack()[1][2]}:{inspect.stack()[1][3]}] {message} \n")
         match log_level:
             case self.info:
                 print(f"{self.CGREEN2}[{time.hour}:{time.minute}:{time.second}] {message}{self.CEND}")
@@ -79,21 +79,22 @@ class Logger(LogTypes):
         file.close()
 
     def logger(self, message:str):
-        print(f"{self.CGREEN2}{self.posix_time} {message}{self.CEND}")
+        time = date.datetime.now()
+        print(f"{self.CGREEN2}[{time.hour}:{time.minute}:{time.second}] {message}{self.CEND}")
 
     def log_to_file(self, message:str):
         caller_filename_full = inspect.stack()[1].filename
         caller_filename_only = os.path.splitext(os.path.basename(caller_filename_full))[0]
-        file_location = f"{os.environ['APPDATA']}\\Ellohim External\\Ellohim Log.log"
+        file_location = f"{os.environ['APPDATA']}\\Scarlet Nexus Trainer\\Scarlet Nexus Log.log"
         os.makedirs(os.path.dirname(file_location), exist_ok=True)
         time = date.datetime.now()
         file = open(file_location,"a")
         
-        file.write(f"[{time.hour}:{time.minute}:{time.second}] [LOG FILE] [{caller_filename_only}.c:{inspect.stack()[1][2]}:{inspect.stack()[1][3]}] {message} \n")
+        file.write(f"[{time.hour}:{time.minute}:{time.second}] [LOG FILE] [{caller_filename_only}.py:{inspect.stack()[1][2]}:{inspect.stack()[1][3]}] {message} \n")
         file.close() 
 
     def clean_log_file(self):
-        file_location = f"{os.environ['APPDATA']}\\Ellohim External\\Ellohim Log.log"
+        file_location = f"{os.environ['APPDATA']}\\Scarlet Nexus Trainer\\Scarlet Nexus Log.log"
         open(file_location,"w").close()
 
     def copy_file(self, src, dst):

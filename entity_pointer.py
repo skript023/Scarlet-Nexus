@@ -93,19 +93,19 @@ def remove_sas_cooldown(activate:bool):
         if base == None : return
         num = pm.read_int(base + 0x8)
         base = pm.read_longlong(base)
-        for i in range(num): pm.write_bytes(base+0xC*i+8, b"\x00", 1)
+        for i in range(num): pm.write_bytes(base + 0xC * i + 8, b"\x00", 1)
 
 def set_infinite_sas_duration(activate:bool):
     base = getSASStateBase()
     if activate:
-        if base: pm.write_bytes(base+0xE0,b"\x01", 1)
+        if base: pm.write_bytes(base + 0xE0,b"\x01", 1)
     elif not activate:
-        if base: pm.write_bytes(base+0xE0,b"\x00", 1)
+        if base: pm.write_bytes(base + 0xE0,b"\x00", 1)
 
 def set_infinite_brain_dive(activate:bool):
     if activate:
         base = getBrainDriveBase()
-        if base: pm.write_float(base+0x24C, 0.0)
+        if base: pm.write_float(base + 0x24C, 0.0)
 
 def instant_brain_field(activate:bool):
     if activate:
@@ -115,15 +115,15 @@ def instant_brain_field(activate:bool):
 def enter_brain_dive(activate:bool):
     if activate:
         base = getBrainDriveBase()
-        if base: pm.write_bytes(base+0x1A2, b"\x01", 1)
+        if base: pm.write_bytes(base + 0x1A2, b"\x01", 1)
 
 def item_usage_no_cooldown(activate:bool):
     base = getItemUseRecastBase()
     if base == None : return
-    num = pm.read_int(base+8)
+    num = pm.read_int(base + 0x8)
     base = pm.read_longlong(base)
     if base == None: return 
-    for i in range(num): pm.write_bytes(base+0xC*i+8,b"\x00", 1)
+    for i in range(num): pm.write_bytes(base + 0xC * i + 0x8,b"\x00", 1)
 
 def infinite_item(activate:bool):
     if activate:

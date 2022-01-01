@@ -1,14 +1,13 @@
 import dearpygui.dearpygui as dpg
 import entity_pointer as player
+import win32api, sys, asyncio
 from memory_scanner import pm
-import win32api
-from window_handler import g_window
+from window_handler import g_window, Timer
 from utility import is_window_exist, set_window_transparent
-import sys
 from logger import g_logger
 from settings import g_settings
 from os import system
-import asyncio
+
 
 async def render():
     g_logger.logger("Renderer initialized")
@@ -132,8 +131,11 @@ async def render():
     dpg.bind_theme(global_theme)
     dpg.setup_dearpygui()
     dpg.show_viewport()
+    
+    window_timer = Timer(0.2)
 
     while dpg.is_dearpygui_running():
+        window_event = window_timer.update()
         if is_window_exist("ScarletNexus"):
             player.remove_sas_cooldown(dpg.get_value("reset_sas"))
             player.set_infinite_sas_duration(dpg.get_value("sas_duration"))
@@ -154,17 +156,13 @@ async def render():
             dpg.configure_viewport(vp, width=window_width, height=window_height)
 
             #Window Handle
-            if win32api.GetAsyncKeyState(0x2D)&0x8000:
-                if g_window.window_toggle:
-                    g_window.window_toggle = False 
-                elif not g_window.window_toggle:
-                    g_window.window_toggle = True
-
-            g_window.window_tick += 1
-            if g_window.window_tick >= 2:
-                g_window.window_tick = 0
-                if g_window.window_toggle and win32api.GetAsyncKeyState(0x2D)&0x8000: g_window.show_vp()
-                if not g_window.window_toggle and win32api.GetAsyncKeyState(0x2D)&0x8000: g_window.hide_vp()
+            if g_window.window_toggle: g_window.show_vp()
+            if not g_window.window_toggle: g_window.hide_vp()
+            if window_event:
+                if win32api.GetAsyncKeyState(0x2D)&0x1:
+                    g_window.window_toggle = not g_window.window_toggle
+                
+        
         if not is_window_exist("ScarletNexus"): sys.exit(0)
         set_window_transparent("Scarlet Nexus Trainer", 229)
         dpg.render_dearpygui_frame()
